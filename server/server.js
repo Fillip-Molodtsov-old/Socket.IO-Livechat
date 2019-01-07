@@ -3,7 +3,7 @@ const http = require('http');
 const express = require('express');
 const socketIO = require('socket.io');
 
-const {generateMessage}=require('./utils/message')
+const {generateMessage,generateLocationMessage}=require('./utils/message')
 
 const port = process.env.PORT || 3000;
 
@@ -22,6 +22,11 @@ io.on('connection',(socket)=>{
     socket.on('createMessage',(message,callback)=>{
         io.emit('newMessage',generateMessage(message.from,message.text))
         callback('A\'good');
+    })
+
+    socket.on('createGeolocationMessage',(message,callback)=>{
+        io.emit('newMessage',generateLocationMessage('Admin',message.latitude,message.longitude))
+        callback('A\'s right')
     })
     
     socket.on('disconnect',()=>{
