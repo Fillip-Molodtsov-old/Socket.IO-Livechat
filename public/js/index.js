@@ -8,22 +8,23 @@ socket.on('disconnect',()=>{
 })
 
 socket.on('newMessage',(message)=>{
-    console.log(message)
     let messageHTML = $(`<li>${message.from}: ${message.text}</li>`)
     $('#messages').append(messageHTML)
 })
 
-$('#signIn').on('submit',e=>{
+$('#message-form').on('submit',e=>{
     e.preventDefault();
+    let input = $('[name=message]');
     socket.emit('createMessage',{
         from:'User',
-        text:$('[name=userText]').val()
+        text:input.val()
     },msg=>{
         console.log('Got it!',msg);
     })
+    input.val("");
 })
 
-let sendLocationButton = $('#sendLocation');
+let sendLocationButton = $('#send-location');
 
 sendLocationButton.on('click',()=>{
     if(!navigator.geolocation){

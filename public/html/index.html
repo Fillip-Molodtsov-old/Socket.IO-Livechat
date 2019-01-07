@@ -10,15 +10,13 @@
 </head>
 
 <body>
-    <ul id="messages"></ul>
-    <div class="signInBlock">
-        <h1>Welcome to our LiveChat</h1>
-        <form id="signIn">
-            <input class="inputSign" name="userText" type="text" placeholder="Print text">
-            <button id="sendWelc">Send</button>
-        </form>
-    </div>
-    <button id="sendLocation">Send location</button>
+    <h1>Welcome to our LiveChat</h1>
+    <ol id="messages"></ol>
+    <form id="message-form">
+        <input class="inputSign" name="message" type="text" placeholder="Print text">
+        <button id="sendWelc">Send</button>
+    </form>
+    <button id="send-location">Send location</button>
     <script src="/socket.io/socket.io.js"></script>
     <script src="/js/libs/jquery-3.3.1.min.js"></script>
     <script src="/js/index.js"></script>
