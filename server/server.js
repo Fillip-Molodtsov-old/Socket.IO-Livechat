@@ -3,6 +3,8 @@ const http = require('http');
 const express = require('express');
 const socketIO = require('socket.io');
 
+const {generateMessage}=require('./utils/message')
+
 const PORT = process.env.PORT ||3000;
 
 let app = express();
@@ -13,15 +15,15 @@ app.use(express.static(publicPath))
 
 io.on('connection',(socket)=>{
     console.log("New user is connected");
-    socket.emit('newMessage',{
-        from:"Phil",
-        text:"privet",
-        createdAt:new Date().toTimeString()
+    
+    socket.emit('newMessage',generateMessage('Admin','Welcome, user'))
+    socket.broadcast.emit('newMessage',generateMessage('Admin','New user joined'));
+
+    socket.on('createMessage',(message,callback)=>{
+        io.emit('newMessage',generateMessage(message.from,message.text))
+        callback('A\'good');
     })
-    socket.on('createMessage',(message)=>{
-        message.createdAt = new Date().toTimeString();
-        console.log(message);
-    })
+    
     socket.on('disconnect',()=>{
         console.log("DISCONNECTED");
     })
