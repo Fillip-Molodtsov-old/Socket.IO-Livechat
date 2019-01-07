@@ -1,0 +1,49 @@
+@import url('https://fonts.googleapis.com/css?family=ZCOOL+QingKe+HuangYou');
+
+$grad1:linear-gradient(to right bottom, #f0fe03, #ceff00, #a6ff00, #75ff1e, #00ff37);
+
+$pink:rgb(252, 0, 189);
+$white50:rgba(255,255,255,.7);
+$browny:rgb(119, 68, 45);
+
+@mixin respond-to($media) {
+  @if $media == phones {
+    @media only screen and (max-width: 480px) { @content; }
+  }
+  @else if $media == wide-phones {
+    @media all and (min-width: 480px) and (max-width: 768px) { @content; }
+  }
+  @else if $media == tablets {
+    @media all and (min-width: 768px) and (max-width: 992px) { @content; }
+  }
+  @else if $media == small-desktops {
+    @media all and (min-width: 992px) and (max-width: 1200px) { @content; }
+  }
+  @else if $media == lg-desktops {
+    @media all and (min-width: 1200px) and (max-width: 1441px) { @content; }
+  }
+  @else if $media == mlg-desktops {
+    @media all and (min-width: 1441px) and (max-width: 1599px) { @content; }
+  }
+  @else if $media == xlg-desktops {
+    @media all and (min-width: 1600px) and (max-width: 1980px) { @content; }
+  }
+  @else if $media == xxlg-desktops{
+  	@media all and (min-width:1981px) { @content; }
+  }
+  @if $media == lvl-1{
+    @media only screen and (min-width: 1441px) { @content; }
+  }
+  @if $media == lvl0{
+    @media only screen and (min-width: 1200px) { @content; }
+  }
+  @if $media == lvl1{
+    @media only screen and (max-width: 1200px) { @content; }
+  }
+  @if $media == lvl2{
+    @media only screen and (max-width: 992px) { @content; }
+  }
+  @if $media == lvl3{
+    @media only screen and (max-width: 768px) { @content; }
+  }
+}

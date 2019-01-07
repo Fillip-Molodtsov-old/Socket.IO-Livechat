@@ -32,4 +32,4 @@ io.on('connection',(socket)=>{
 app.get('/',(req,res)=>{
     res.sendFile(publicPath+'/html/index.html')
 })
-server.listen(port,()=>console.log(`Listening to port ${PORT}`))
+server.listen(port,()=>console.log(`Listening to port ${port}`))
