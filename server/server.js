@@ -5,7 +5,7 @@ const socketIO = require('socket.io');
 
 const {generateMessage}=require('./utils/message')
 
-const PORT = process.env.PORT ||3000;
+const port = process.env.PORT || 3000;
 
 let app = express();
 let server = http.createServer(app);
@@ -32,4 +32,4 @@ io.on('connection',(socket)=>{
 app.get('/',(req,res)=>{
     res.sendFile(publicPath+'/html/index.html')
 })
-server.listen(PORT,()=>console.log(`Listening to port ${PORT}`))
+server.listen(port,()=>console.log(`Listening to port ${PORT}`))
