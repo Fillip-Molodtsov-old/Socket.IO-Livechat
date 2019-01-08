@@ -7,9 +7,44 @@ socket.on('disconnect',()=>{
     console.log("Bye bye");
 })
 
+const autoScrolling = ()=>{
+    let chatBlock = $('#messages');
+    let newMsg= chatBlock.children('li:last-child');
+
+    let scrollTop = chatBlock.prop('scrollTop');
+    let scrollHeight = chatBlock.prop('scrollHeight');
+    let clientHeight = chatBlock.prop('clientHeight');
+    let newMsgHeight = newMsg.innerHeight();
+    let lastMsgHeight = newMsg.prev().innerHeight();
+    
+    if(scrollTop+clientHeight+newMsgHeight+lastMsgHeight>=scrollHeight){ //instead of lastMsgHeight you can add just 2
+        chatBlock.scrollTop(scrollHeight)
+    }
+}
+
 socket.on('newMessage',(message)=>{
-    let messageHTML = $(`<li>${message.from}: ${message.text} (${message.createdAt})</li>`)
+    let {text,from,createdAt} = message;
+    let template = $('#message-template').html();
+    let messageHTML = Mustache.render(template,{
+        text,
+        from,
+        createdAt
+    })
     $('#messages').append(messageHTML)
+    autoScrolling();
+})
+
+socket.on('newLocationMessage',(message)=>{
+    let {text,from,createdAt,link} = message;
+    let template = $('#location-message-template').html();
+    let messageHTML = Mustache.render(template,{
+        text,
+        from,
+        createdAt,
+        link,
+    })
+    $('#messages').append(messageHTML)
+    autoScrolling();
 })
 
 $('#message-form').on('submit',e=>{
@@ -19,7 +54,6 @@ $('#message-form').on('submit',e=>{
         from:'User',
         text:input.val()
     },msg=>{
-        console.log('Got it!',msg);
         input.val("");
     })
    
@@ -40,7 +74,6 @@ sendLocationButton.on('click',()=>{
             longitude:location.coords.longitude
         },msg=>{
             sendLocationButton.removeAttr('disabled')
-            console.log('Got it!',msg);
         })
     },e=>alert(e));
 })

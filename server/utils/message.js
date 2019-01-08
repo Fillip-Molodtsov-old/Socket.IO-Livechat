@@ -11,8 +11,9 @@ const generateMessage = (from,text)=>{
 const generateLocationMessage = (from,latitude,longitude)=>{
     return{
         from,
-        text:`<a href="https://www.google.com/maps?${latitude},${longitude}" target="_blank">My location</a>`,
-        createdAt:moment().format('H:mm')
+        text:'My location',
+        createdAt:moment().format('H:mm'),
+        link:`https://www.google.com/maps?${latitude},${longitude}`,
     }
 }
 module.exports = {generateMessage,generateLocationMessage};

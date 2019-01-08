@@ -25,8 +25,8 @@ io.on('connection',(socket)=>{
     })
 
     socket.on('createGeolocationMessage',(message,callback)=>{
-        io.emit('newMessage',generateLocationMessage('Admin',message.latitude,message.longitude))
-        callback('A\'s right')
+        io.emit('newLocationMessage',generateLocationMessage('Admin',message.latitude,message.longitude))
+        callback()
     })
     
     socket.on('disconnect',()=>{
