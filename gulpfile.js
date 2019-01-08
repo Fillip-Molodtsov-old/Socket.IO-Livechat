@@ -19,7 +19,7 @@ const styleSrc =  'public/scss/style.scss';
 const destStyle = 'public/css/'
 const styleWatch = 'public/scss/**/*.scss'; //don't save files in the same directory of the source files
 
-const jsSrc = 'index.js';
+const jsSrc = 'chat.js';
 const jsFolder = 'public/js/';
 const destJS = 'public/js/js-prod'
 const jsWatch = 'public/js/*.js';  //don't save files in the same directory of the source files

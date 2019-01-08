@@ -1,8 +1,26 @@
 let socket = io();
 
 socket.on('connect',()=>{
-    console.log("Connected");
+    let params = $.deparam(window.location.search);
+    socket.emit('join',params,err=>{
+        if(err){
+            alert(err);
+            window.location.href='/';
+        }else{
+
+        }
+    })
 })
+
+socket.on('updateUserList',nameArray=>{
+    let ol = $('<ol></ol>')
+    nameArray.forEach(name=>{
+        ol.append($('<li></li>').text(name));
+        
+    })
+    $('#users').html(ol);
+})
+
 socket.on('disconnect',()=>{
     console.log("Bye bye");
 })
@@ -51,9 +69,9 @@ $('#message-form').on('submit',e=>{
     e.preventDefault();
     let input = $('[name=message]');
     socket.emit('createMessage',{
-        from:'User',
         text:input.val()
     },msg=>{
+        if(msg) alert(msg);
         input.val("");
     })
    
@@ -73,6 +91,7 @@ sendLocationButton.on('click',()=>{
             latitude:location.coords.latitude,
             longitude:location.coords.longitude
         },msg=>{
+            if(msg) alert(msg);
             sendLocationButton.removeAttr('disabled')
         })
     },e=>alert(e));
